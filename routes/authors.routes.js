@@ -10,8 +10,8 @@ router.delete('/email', authorsController.deleteAuthor);
 
 module.exports = router;
 
-// GET http://localhost:3000/api/entries --> ALL
-// GET http://localhost:3000/api/entries?email=hola@gmail.com --> por email
-// POST http://localhost:3000/api/entries
-// PUT http://localhost:3000/api/entries --> pasar JSON con búsqueda por title
-// DELETE http://localhost:3000/api/entries --> Pasar JSON con búsqueda por title
+// GET http://localhost:3000/api/authors --> ALL
+// GET http://localhost:3000/api/authors?email=hola@gmail.com --> por email
+// POST http://localhost:3000/api/authors
+// PUT http://localhost:3000/api/authors --> pasar JSON con búsqueda por title
+// DELETE http://localhost:3000/api/authors?email=hola@gmail.com  --> Pasar JSON con búsqueda por title

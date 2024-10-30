@@ -20,7 +20,7 @@ const createAuthor = async (req, res) => {
         
     // }
     const newAuthor = req.body; // {name, surname, email, image}
-    const response = await entry.createEntry(newAuthor);
+    const response = await author.createEntry(newAuthor);
     res.status(201).json({
         message: `usuario creado: ${newAuthor}`,
         "items_created": response,
@@ -32,11 +32,10 @@ const createAuthor = async (req, res) => {
 // Devolver {message: "usuario actualizado: guillermu@thebridgeschool.es"}
 const updateAuthor = async (req, res) => {
     const author = req.body; // {name, surname, email, image}
-    const response = await entry.updateAuthor(author);
+    const response = await author.updateAuthor(author);
     res.status(200).json({
         message: 'Autor actualizado',
         "items_deletedupdated": response,
-        data: newEntry
     });
 }
 
@@ -44,11 +43,10 @@ const updateAuthor = async (req, res) => {
 // Tiene que devolver {message: "Se ha borrado guillermu@thebridgeschool.es"}
 const deleteAuthor = async (req, res) => {
     const email = req.body; // {email}
-    const response = await entry.updateAuthor(email);
+    const response = await author.deleteAuthor(email);
     res.status(200).json({
         message: `Se ha "borrado" ${email}`,
         "items_updated": response,
-        data: newEntry
     });
 }
 
