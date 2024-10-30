@@ -14,7 +14,7 @@ const queries = {
     deleteEntry: `
         DELETE
         FROM entries
-        WHERE title = $1`,
+        WHERE title = $1`
 }
 // Publicarlo para que quien quiera haga un require y el nombre del fichero
 module.exports = queries;

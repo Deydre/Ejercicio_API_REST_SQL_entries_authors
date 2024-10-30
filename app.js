@@ -4,6 +4,7 @@ const port = 3000
 
 // Rutas
 const entriesRoutes = require("./routes/entries.routes")
+const authorsRoutes = require("./routes/authors.routes")
 
 app.use(express.json()); // Habilito recepción de JSON en servidor
 
@@ -14,6 +15,7 @@ app.get('/', (req, res) => {
 // Rutas
 //API
 app.use('/api/entries',entriesRoutes);
+app.use('/api/authors',authorsRoutes);
 
 // Para ruta no existente
 app.use("*", (req, res) => {

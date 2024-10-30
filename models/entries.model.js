@@ -8,9 +8,9 @@ const pool = new Pool({
     port: '5432',
     database: 'postgres',
     password: '<your_password>'
-  });
+});
 
-// GET
+// GET ALL ENTRIES
 const getAllEntries = async () => {
     let client, result;
     try {
@@ -28,11 +28,11 @@ const getAllEntries = async () => {
 
 // CREATE
 const createEntry = async (entry) => {
-    const { title, content, date, category } = entry;
+    const { title, content, email, category } = entry;
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.createEntry,[title, content, date, category])
+        const data = await client.query(queries.createEntry, [title, content, email, category])
         result = data.rowCount
     } catch (err) {
         console.log(err);
@@ -43,22 +43,6 @@ const createEntry = async (entry) => {
     return result
 }
 
-// DELETE
-const deleteEntry = async (entryToDelete) => {
-    let title = entryToDelete;
-    let client, result;
-    try {
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.deleteEntry,[title])
-        result = data.rowCount
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result;
-}
 
 // updateEntry: `
 // UPDATE entries
@@ -71,7 +55,7 @@ const updateEntry = async (entry) => {
     let client, result;
     try {
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.updateEntry,[title, content, date, category])
+        const data = await client.query(queries.updateEntry, [title, content, date, category])
         result = data.rowCount
     } catch (err) {
         console.log(err);
@@ -79,16 +63,35 @@ const updateEntry = async (entry) => {
     } finally {
         client.release();
     }
-    return result
+    return result;
 }
+
+// DELETE
+const deleteEntry = async (entryToDelete) => {
+    let title = entryToDelete;
+    let client, result;
+    try {
+        client = await pool.connect(); // Espera a abrir conexion
+        const data = await client.query(queries.deleteEntry, [title])
+        result = data.rowCount
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result;
+}
+
+
 
 // -------------------------
 
 const entries = {
     getAllEntries,
     createEntry,
-    deleteEntry,
-    updateEntry
+    updateEntry,
+    deleteEntry
 }
 
 module.exports = entries;
@@ -96,9 +99,8 @@ module.exports = entries;
 
 // Pruebas
 
-    //  getEntriesByEmail("guillermu@thebridgeschool.es")
-    // .then(data=>console.log(data)) 
-
+//  getEntriesByEmail("guillermu@thebridgeschool.es")
+// .then(data=>console.log(data)) 
 
 
 // getAllEntries()
@@ -106,13 +108,31 @@ module.exports = entries;
 
 
 
-//  let newEntry = {
-//     title: "Se acabaron las mandarinas de TB",
-//     content: "Corren rumores de que papa noel tenía un saco vacio y lo llenó",
-//     email: "guillermu@thebridgeschool.es",
-//     category: "sucesos"
+
+// // PRUEBAS DE CREAR --> ESTO NO FUNCIONA!!!!!!!!!
+// let newEntry = {
+//     "title": "MACARRONES 34 CON TOMATE",
+//     "content": "1234564756",
+//     "date": "2024-10-22T22:00:00.000Z",
+//     "category": "Comida"
+// }
+
+// createEntry(newEntry)
+//     .then(data => console.log(data))
+
+// ----------------------------------------------
+// // PRUEBAS DE UPDATE  (FUNCIONA OK)
+// let updatedEntry = {
+//     "title": "MACARRONES 3 CON TOMATE",
+//     "content": "NUEVO CONTENIDO EDITADITTO",
+//     "date": "2024-10-22T22:00:00.000Z",
+//     "category": "ComidaAAA"
 // }
 
 // // Aquí dentro habrá un INSERT INTO
-// createEntry(newEntry)
-//     .then(data => console.log(data)) 
+// updateEntry(updatedEntry)
+//     .then(data => console.log(data))
+
+// // PRUEBAS DE BORRAR (FUNCIONA OK)
+// deleteEntry("MACARRONES 3 CON TOMATE")
+//     .then(data => console.log(data))

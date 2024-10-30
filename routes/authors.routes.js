@@ -1,11 +1,12 @@
 const express = require('express');
-const entriesController = require("../controllers/entries.controller");
+const authorsController = require("../controllers/authors.controller");
 const router = express.Router();
 
-router.get('/', entriesController.getEntries);
-router.post('/', entriesController.createEntry);
-router.put('/', entriesController.updateEntry);
-router.delete('/', entriesController.deleteEntry);
+router.get('/', authorsController.getAllAuthors);
+router.get('/email', authorsController.getOneAuthor);
+router.post('/', authorsController.createAuthor);
+router.put('/', authorsController.updateAuthor);
+router.delete('/email', authorsController.deleteAuthor);
 
 module.exports = router;
 
